@@ -28,65 +28,65 @@
   <div id="map"></div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    var map = L.map('map').setView([39.9, -7.1], 10); // Zoomed into Idanha
+    var map = L.map('map');
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
     }).addTo(map);
 
-    // Define correct year colors
-var yearColors = {
-  "2017": "#1f78b4",
-  "2018": "#33a02c",
-  "2019": "#e31a1c",
-  "2020": "#ff7f00",
-  "2021": "#6a3d9a",
-  "2022": "#a6cee3",
-  "2023": "#b2df8a",
-  "2024": "#fb9a99"
-};
+    // Define planting year colors
+    var yearColors = {
+      "2017": "#1f78b4",
+      "2018": "#33a02c",
+      "2019": "#e31a1c",
+      "2020": "#ff7f00",
+      "2021": "#6a3d9a",
+      "2022": "#a6cee3",
+      "2023": "#b2df8a",
+      "2024": "#fb9a99"
+    };
 
-function getColor(year) {
-  return yearColors[year] || (year ? '#bdbdbd' : '#ffffff');
-}
+    function getColor(year) {
+      return yearColors[year] || (year ? '#bdbdbd' : '#ffffff');
+    }
+
     fetch('Idanha_Planting_Year_git.geojson')
-  .then(res => res.json())
-  .then(data => {
-    const layer = L.geoJSON(data, {
-      style: function(feature) {
-        var year = feature.properties['planting_year'];
-        return {
-          color: '#666',
-          weight: 1,
-          fillColor: getColor(year),
-          fillOpacity: 0.7
-        };
-      },
-      onEachFeature: function (feature, layer) {
-        if (feature.properties) {
-          layer.bindPopup(Object.entries(feature.properties).map(([k,v]) => k + ': ' + v).join('<br>'));
-        }
-      }
-    }).addTo(map);
-    
-    // Fit the map to the bounds of the GeoJSON layer
-    map.fitBounds(layer.getBounds());
-  });
+      .then(res => res.json())
+      .then(data => {
+        const layer = L.geoJSON(data, {
+          style: function(feature) {
+            var year = feature.properties['planting_year'];
+            return {
+              color: '#666',
+              weight: 1,
+              fillColor: getColor(year),
+              fillOpacity: 0.7
+            };
+          },
+          onEachFeature: function (feature, layer) {
+            if (feature.properties) {
+              layer.bindPopup(Object.entries(feature.properties).map(([k,v]) => k + ': ' + v).join('<br>'));
+            }
+          }
+        }).addTo(map);
 
-    // Add Legend
+        map.fitBounds(layer.getBounds());
+      });
+
+    // Add legend
     var legend = L.control({position: 'bottomright'});
 
     legend.onAdd = function (map) {
-  var div = L.DomUtil.create('div', 'legend');
-  div.innerHTML = '<strong>Planting Year</strong><br>';
-  for (var year of Object.keys(yearColors)) {
-    div.innerHTML +=
-      '<i style="background:' + yearColors[year] + '"></i> ' +
-      year + '<br>';
-  }
-  div.innerHTML += '<i style="background:#ffffff"></i> (Blank)';
-  return div;
-};
+      var div = L.DomUtil.create('div', 'legend');
+      div.innerHTML = '<strong>Planting Year</strong><br>';
+      for (var year of Object.keys(yearColors)) {
+        div.innerHTML +=
+          '<i style="background:' + yearColors[year] + '"></i> ' +
+          year + '<br>';
+      }
+      div.innerHTML += '<i style="background:#ffffff"></i> (Blank)';
+      return div;
+    };
 
     legend.addTo(map);
   </script>
