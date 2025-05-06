@@ -1,1 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Planting Year Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { height: 100vh; margin: 0; padding: 0; }
+    body { margin: 0; }
+    .legend {
+      background: white;
+      padding: 6px 10px;
+      line-height: 18px;
+      color: #555;
+      border-radius: 5px;
+    }
+    .legend i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([39.9, -7.1], 10); // Zoomed into Idanha
 
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+    }).addTo(map);
+
+    // Define colors by year
+    var yearColors = {
+      "2000": "#1f78b4",
+      "2005": "#33a02c",
+      "2010": "#e31a1c",
+      "2015": "#ff7f00",
+      "2020": "#6a3d9a"
+      // add more years as needed
+    };
+
+    function getColor(year) {
+      return yearColors[year] || (year ? '#bdbdbd' : '#ffffff'); // gray for unknown years, white for blank
+    }
+
+    fetch('Idanha_Planting_Year_git.geojson')
+      .then(res => res.json())
+      .then(data => {
+        L.geoJSON(data, {
+          style: function(feature) {
+            var year = feature.properties['planting_year'];
+            return {
+              color: '#666',
+              weight: 1,
+              fillColor: getColor(year),
+              fillOpacity: 0.7
+            };
+          },
+          onEachFeature: function (feature, layer) {
+            if (feature.properties) {
+              layer.bindPopup(Object.entries(feature.properties).map(([k,v]) => k + ': ' + v).join('<br>'));
+            }
+          }
+        }).addTo(map);
+      });
+
+    // Add Legend
+    var legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+      var div = L.DomUtil.create('div', 'legend');
+      div.innerHTML = '<strong>Planting Year</strong><br>';
+      for (var year in yearColors) {
+        div.innerHTML +=
+          '<i style="background:' + yearColors[year] + '"></i> ' +
+          year + '<br>';
+      }
+      div.innerHTML += '<i style="background:#ffffff"></i> (Blank)';
+      return div;
+    };
+
+    legend.addTo(map);
+  </script>
+</body>
+</html>
