@@ -1,0 +1,162 @@
+:root {
+  --bg: #f4f2ec;
+  --panel: #fefbf4;
+  --border: #d4ccb7;
+  --text: #2b2923;
+  --muted: #6f6857;
+  --accent: #9c6644;
+  --focus: #2b9348;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at 15% 15%, #fff8e9, var(--bg) 45%, #e8e2d3 100%);
+}
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  height: 100%;
+}
+
+.panel {
+  overflow: auto;
+  border-right: 1px solid var(--border);
+  background: linear-gradient(180deg, #fffdf8 0%, var(--panel) 100%);
+  padding: 16px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.7rem;
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  margin: 6px 0 14px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.panel-block {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fffdf8;
+}
+
+.panel-block h2 {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.layer-item {
+  border: 1px solid #e3dcc9;
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 8px;
+  background: #fff;
+}
+
+.layer-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.layer-head label {
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.opacity-row {
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.opacity-row input[type="range"] {
+  flex: 1;
+}
+
+.legend-wrap {
+  display: grid;
+  gap: 10px;
+}
+
+.legend-card {
+  border: 1px solid #e3dcc9;
+  border-radius: 10px;
+  padding: 8px;
+  background: #fff;
+}
+
+.legend-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.legend-row {
+  display: grid;
+  grid-template-columns: 16px 1fr;
+  gap: 8px;
+  align-items: center;
+  margin: 4px 0;
+  font-size: 0.84rem;
+}
+
+.swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  border: 1px solid #bbb;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.map-wrap {
+  position: relative;
+}
+
+@media (max-width: 960px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: 44vh 56vh;
+  }
+
+  .panel {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
+.popup-table {
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.popup-table td {
+  border-bottom: 1px solid #eee;
+  padding: 2px 6px;
+}
+
+.popup-table td:first-child {
+  color: #555;
+  font-weight: 500;
+}
