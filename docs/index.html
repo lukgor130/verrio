@@ -1,38 +1,145 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Zimbabwe Cocoa Suitability Layers</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-  <link rel="stylesheet" href="./styles.css" />
-</head>
-<body>
-  <div class="app-shell">
-    <aside class="panel">
-      <h1>Cocoa Suitability</h1>
-      <p class="subtitle">Zimbabwe, CropSuite v1.0 (masked to ir_var suitability &gt; 1)</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Almond Rank MVP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>Portugal Almond Climate Rank</h1>
+        <p>Field-level climatic diagnostics and peer comparison (2020-2025)</p>
+      </div>
+      <div class="controls">
+        <label>
+          Year
+          <select id="yearSelect"></select>
+        </label>
+        <label>
+          Map Layer
+          <select id="mapMetricSelect">
+            <option value="stage_risk">Stage Risk</option>
+            <option value="annual_chill">Annual Chill Percentile</option>
+            <option value="annual_wet">Annual Wet-Day Percentile</option>
+            <option value="annual_frost">Annual Frost Percentile</option>
+          </select>
+        </label>
+        <label>
+          Stage
+          <select id="stageSelect">
+            <option value="dormancy">Dormancy</option>
+            <option value="bud_bloom">Bud and Bloom</option>
+            <option value="growth">Growth</option>
+          </select>
+        </label>
+      </div>
+    </header>
 
-      <section class="panel-block">
-        <h2>Overlays</h2>
-        <div id="layer-controls" class="layer-controls"></div>
+    <main class="layout">
+      <section class="map-panel">
+        <div id="map"></div>
+        <div class="legend" id="mapLegend"></div>
       </section>
 
-      <section class="panel-block">
-        <h2>Legends</h2>
-        <div id="legend" class="legend-wrap"></div>
-      </section>
-    </aside>
+      <aside class="sidebar" id="sidebar">
+        <div class="empty" id="emptyState">
+          <h2>Select a field polygon</h2>
+          <p>Click any orchard polygon on the map to view climate risk profile, stage diagnostics, and distribution benchmark.</p>
+        </div>
 
-    <main class="map-wrap">
-      <div id="map"></div>
+        <div id="contentState" class="hidden">
+          <section class="summary-card">
+            <h2 id="fieldTitle"></h2>
+            <p id="fieldSubtitle"></p>
+            <p class="headline" id="headlineText"></p>
+          </section>
+
+          <section class="kpi-grid">
+            <article>
+              <h3>Annual Chill</h3>
+              <p id="kpiChill"></p>
+              <small id="kpiChillPct"></small>
+            </article>
+            <article>
+              <h3>Annual Wet Days</h3>
+              <p id="kpiWet"></p>
+              <small id="kpiWetPct"></small>
+            </article>
+            <article>
+              <h3>Annual Precip</h3>
+              <p id="kpiPrecip"></p>
+              <small id="kpiPrecipPct"></small>
+            </article>
+            <article>
+              <h3>Selected Stage Risk</h3>
+              <p id="kpiStageRisk"></p>
+              <small id="kpiStageBand"></small>
+            </article>
+          </section>
+
+          <section class="chart-card">
+            <div class="card-head">
+              <h3>Field Trend (2020-2025)</h3>
+              <select id="trendMetricSelect">
+                <option value="chill_hours">Chill Hours</option>
+                <option value="wet_days">Wet Days</option>
+                <option value="precip_total_mm">Precipitation (mm)</option>
+                <option value="stage_risk">Stage Risk Score</option>
+              </select>
+            </div>
+            <canvas id="trendChart"></canvas>
+          </section>
+
+          <details class="stage-matrix">
+            <summary>Phenology Risk Matrix</summary>
+            <table>
+              <thead>
+                <tr>
+                  <th>Stage</th>
+                  <th>Risk</th>
+                  <th>Band</th>
+                  <th>Wet Days</th>
+                  <th>Chill (h)</th>
+                </tr>
+              </thead>
+              <tbody id="stageMatrixBody"></tbody>
+            </table>
+          </details>
+
+          <section class="chart-card">
+            <div class="card-head">
+              <h3>National Distribution</h3>
+              <select id="distMetricSelect">
+                <option value="stage_risk">Selected Stage Risk</option>
+                <option value="chill_hours">Annual Chill Hours</option>
+                <option value="wet_days">Annual Wet Days</option>
+                <option value="precip_total_mm">Annual Precipitation</option>
+              </select>
+            </div>
+            <canvas id="distChart"></canvas>
+            <p class="dist-note" id="distNote"></p>
+          </section>
+
+          <details class="explain">
+            <summary>Method & Interpretation</summary>
+            <ul>
+              <li>Percentiles compare the selected field against all almond fields for the selected year.</li>
+              <li>Stage risk is a weighted composite of low chill pressure and wet/frost/precip stress in that stage window.</li>
+              <li>Current frost signal is low-variance in this dataset version and should be interpreted cautiously.</li>
+            </ul>
+          </details>
+        </div>
+      </aside>
     </main>
-  </div>
 
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="./app.js"></script>
-</body>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
 </html>
