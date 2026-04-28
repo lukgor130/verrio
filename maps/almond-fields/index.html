@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verrio | Almond Field Viewer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Cormorant+Garamond:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f3ecdc;
+        --panel: rgba(249, 244, 234, 0.9);
+        --ink: #223230;
+        --soft: #5d7068;
+        --line: rgba(34, 50, 48, 0.14);
+        --accent: #85d46c;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at top right, rgba(133, 212, 108, 0.25), transparent 28%),
+          linear-gradient(180deg, #f8f2e6 0%, var(--bg) 100%);
+        color: var(--ink);
+        font-family: Manrope, system-ui, sans-serif;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: minmax(18rem, 22rem) minmax(0, 1fr);
+        min-height: 100vh;
+      }
+
+      .panel {
+        padding: 1.25rem;
+        border-right: 1px solid var(--line);
+        background: var(--panel);
+        backdrop-filter: blur(12px);
+      }
+
+      .panel h1 {
+        margin: 0;
+        font-family: "Cormorant Garamond", Georgia, serif;
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 0.95;
+      }
+
+      .panel p {
+        color: var(--soft);
+      }
+
+      .actions {
+        display: grid;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 2.9rem;
+        padding: 0.75rem 1rem;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.45);
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .button.primary {
+        background: var(--accent);
+        color: #1f2a26;
+        border-color: transparent;
+      }
+
+      .meta {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--line);
+        display: grid;
+        gap: 0.6rem;
+        font-size: 0.94rem;
+      }
+
+      #map {
+        min-height: 100vh;
+      }
+
+      @media (max-width: 840px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .panel {
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        #map {
+          min-height: 68vh;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="layout">
+      <aside class="panel">
+        <p>Reference map</p>
+        <h1>Almond Field Viewer</h1>
+        <p>
+          A lightweight field polygon viewer for quick sharing, basic inspection, and simple
+          conversations around orchard footprint.
+        </p>
+        <div class="actions">
+          <a class="button primary" href="/">Back to verrio.co</a>
+          <a class="button" href="/docs/">Open climate rank app</a>
+        </div>
+        <div class="meta">
+          <p>Source: existing repository GeoJSON.</p>
+          <p>Use this link when you want a simple public map without the fuller analytics interface.</p>
+        </div>
+      </aside>
+      <section id="map" aria-label="Map of almond fields"></section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+      const map = L.map("map").setView([38.7, -8.0], 7);
+
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 18,
+        attribution: "&copy; OpenStreetMap contributors",
+      }).addTo(map);
+
+      fetch("../../almond_fields.geojson")
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error("Failed to load almond_fields.geojson");
+          }
+          return res.json();
+        })
+        .then((data) => {
+          const layer = L.geoJSON(data, {
+            style: {
+              color: "#355f57",
+              weight: 1,
+              fillColor: "#85d46c",
+              fillOpacity: 0.48,
+            },
+            onEachFeature(feature, geoLayer) {
+              if (!feature.properties) {
+                return;
+              }
+              geoLayer.bindPopup(
+                Object.entries(feature.properties)
+                  .map(([key, value]) => `${key}: ${value}`)
+                  .join("<br>")
+              );
+            },
+          }).addTo(map);
+
+          map.fitBounds(layer.getBounds(), { padding: [24, 24] });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    </script>
+  </body>
+</html>

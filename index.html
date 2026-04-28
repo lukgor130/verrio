@@ -1,35 +1,244 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>Almond Fields Map</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    #map { height: 100vh; margin: 0; padding: 0; }
-    body { margin: 0; }
-  </style>
-</head>
-<body>
-  <div id="map"></div>
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script>
-    var map = L.map('map').setView([38.7, -8.0], 7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-    }).addTo(map);
-    fetch('almond_fields.geojson')
-      .then(res => res.json())
-      .then(data => {
-        L.geoJSON(data, {
-          style: { color: 'green', weight: 1 },
-          onEachFeature: function (feature, layer) {
-            if (feature.properties) {
-              layer.bindPopup(Object.entries(feature.properties).map(([k,v]) => k + ': ' + v).join('<br>'));
-            }
-          }
-        }).addTo(map);
-      });
-  </script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Verrio | Resilient Agriculture Intelligence</title>
+    <meta
+      name="description"
+      content="Verrio supports resilient agriculture strategy through trusted sourcing, spatial intelligence, and decision-ready reporting."
+    />
+    <meta property="og:title" content="Verrio | Resilient Agriculture Intelligence" />
+    <meta
+      property="og:description"
+      content="Trusted sourcing, resilience mapping, and advisory systems for Mediterranean agriculture."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://verrio.co/" />
+    <link rel="canonical" href="https://verrio.co/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="site-bg" aria-hidden="true">
+      <div class="site-glow site-glow-one"></div>
+      <div class="site-glow site-glow-two"></div>
+      <div class="site-grid"></div>
+    </div>
+
+    <header class="site-header">
+      <div class="shell nav-shell">
+        <a class="brand" href="#top" aria-label="Verrio home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 120 120" role="img" aria-hidden="true">
+              <defs>
+                <linearGradient id="leafGrad" x1="30" y1="18" x2="92" y2="88" gradientUnits="userSpaceOnUse">
+                  <stop offset="0" stop-color="#8CFF9A" />
+                  <stop offset="0.55" stop-color="#63CC87" />
+                  <stop offset="1" stop-color="#387A73" />
+                </linearGradient>
+                <clipPath id="treeClip">
+                  <circle cx="60" cy="48" r="31"></circle>
+                </clipPath>
+              </defs>
+              <rect x="2" y="2" width="116" height="116" rx="30" fill="#f5f0e3"></rect>
+              <g clip-path="url(#treeClip)">
+                <rect x="29" y="17" width="62" height="62" rx="31" fill="#edf6ed"></rect>
+                <g fill="url(#leafGrad)">
+                  <rect x="38" y="27" width="17" height="11" rx="5.5" transform="rotate(-30 38 27)"></rect>
+                  <rect x="54" y="24" width="17" height="11" rx="5.5" transform="rotate(12 54 24)"></rect>
+                  <rect x="69" y="31" width="17" height="11" rx="5.5" transform="rotate(35 69 31)"></rect>
+                  <rect x="36" y="45" width="17" height="11" rx="5.5" transform="rotate(-15 36 45)"></rect>
+                  <rect x="53" y="43" width="17" height="11" rx="5.5"></rect>
+                  <rect x="70" y="46" width="17" height="11" rx="5.5" transform="rotate(20 70 46)"></rect>
+                  <rect x="41" y="61" width="17" height="11" rx="5.5" transform="rotate(-8 41 61)"></rect>
+                  <rect x="58" y="59" width="17" height="11" rx="5.5" transform="rotate(18 58 59)"></rect>
+                </g>
+              </g>
+              <path d="M53 56C53 52.134 56.134 49 60 49C63.866 49 67 52.134 67 56V88H53V56Z" fill="#284E48"></path>
+              <path d="M41 76C41 72.134 44.134 69 48 69H72C75.866 69 79 72.134 79 76V77C79 80.866 75.866 84 72 84H48C44.134 84 41 80.866 41 77V76Z" fill="#30383A"></path>
+              <circle cx="60" cy="48" r="31" stroke="#284E48" stroke-opacity="0.14" stroke-width="2"></circle>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Verrio</strong>
+            <small>Resilient agriculture intelligence</small>
+          </span>
+        </a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+          Menu
+        </button>
+
+        <nav id="site-nav" class="site-nav" aria-label="Primary">
+          <a href="#services">Services</a>
+          <a href="#apps">Apps</a>
+          <a href="#approach">Approach</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <section class="hero section-pad">
+        <div class="shell hero-layout">
+          <div class="hero-copy reveal">
+            <p class="eyebrow">Mediterranean resilience systems</p>
+            <h1>Field reality, procurement logic, and spatial evidence in one operating layer.</h1>
+            <p class="hero-lede">
+              Verrio helps agriculture buyers, investors, and advisory teams move from fragmented
+              sustainability signals to practical sourcing and reporting decisions.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-solid" href="mailto:luke@verrio.co">Email Luke</a>
+              <a class="button button-outline" href="#apps">View Live Apps</a>
+            </div>
+          </div>
+
+          <aside class="hero-panel reveal" aria-label="Verrio operating focus">
+            <p class="panel-kicker">Active focus</p>
+            <div class="signal-stack">
+              <article>
+                <span>01</span>
+                <h2>Trusted Sourcing</h2>
+                <p>Commercial pathways for Mediterranean nut supply with clearer field-level context.</p>
+              </article>
+              <article>
+                <span>02</span>
+                <h2>Resilience Mapping</h2>
+                <p>Spatial diagnostics for water pressure, phenology risk, and orchard exposure.</p>
+              </article>
+              <article>
+                <span>03</span>
+                <h2>Decision-Ready Reporting</h2>
+                <p>Advisory outputs structured for buyers, investors, and disclosure teams.</p>
+              </article>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="services" class="services section-pad">
+        <div class="shell">
+          <div class="section-head reveal">
+            <p class="eyebrow">What Verrio does</p>
+            <h2>Built for conversations that start commercial and quickly become technical.</h2>
+          </div>
+
+          <div class="services-layout">
+            <article class="service-card reveal">
+              <p class="card-index">Sourcing</p>
+              <h3>Mediterranean agricultural supply</h3>
+              <p>
+                Verrio supports crop-specific sourcing relationships where procurement quality,
+                long-term resilience, and operational trust all matter at once.
+              </p>
+            </article>
+
+            <article class="service-card reveal service-card-wide">
+              <p class="card-index">Intelligence</p>
+              <h3>Spatial tools that make climate and biodiversity risk legible</h3>
+              <p>
+                Interactive map applications turn field and region data into something decision makers
+                can actually inspect, compare, and discuss.
+              </p>
+            </article>
+
+            <article class="service-card reveal">
+              <p class="card-index">Advisory</p>
+              <h3>Reporting systems that connect evidence to action</h3>
+              <p>
+                The work is geared toward usable reporting architecture rather than abstract scoring for
+                its own sake.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="apps" class="apps section-pad">
+        <div class="shell apps-layout">
+          <div class="apps-copy reveal">
+            <p class="eyebrow">Public web apps</p>
+            <h2>Live tools can sit beside the main site without taking over the main domain.</h2>
+            <p>
+              The root site stays clean at <strong>verrio.co</strong>. Individual tools can be shared
+              directly by URL for calls, pilots, and client conversations.
+            </p>
+          </div>
+
+          <div class="app-grid">
+            <a class="app-card reveal" href="/docs/">
+              <span class="app-label">Live now</span>
+              <h3>Portugal Almond Climate Rank</h3>
+              <p>Field-level climate diagnostics, benchmarking, and map-based comparison.</p>
+              <strong>Open app</strong>
+            </a>
+
+            <a class="app-card reveal" href="/maps/almond-fields/">
+              <span class="app-label">Reference map</span>
+              <h3>Almond Field Viewer</h3>
+              <p>A lightweight orchard polygon viewer for quick sharing and inspection.</p>
+              <strong>Open map</strong>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="approach" class="approach section-pad">
+        <div class="shell approach-layout">
+          <div class="section-head reveal">
+            <p class="eyebrow">Working logic</p>
+            <h2>Designed to move from signal to conversation to operating decision.</h2>
+          </div>
+
+          <div class="approach-grid">
+            <article class="approach-step reveal">
+              <span>01</span>
+              <h3>Frame the exposure</h3>
+              <p>Start with a crop, geography, and decision context rather than a generic dashboard.</p>
+            </article>
+            <article class="approach-step reveal">
+              <span>02</span>
+              <h3>Inspect the evidence</h3>
+              <p>Use spatial tools, field diagnostics, and local knowledge to interpret what matters.</p>
+            </article>
+            <article class="approach-step reveal">
+              <span>03</span>
+              <h3>Translate into action</h3>
+              <p>Turn the analysis into sourcing options, reporting structure, or a concrete next step.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="contact section-pad">
+        <div class="shell contact-layout reveal">
+          <div>
+            <p class="eyebrow">Contact</p>
+            <h2>If you want to explore a pilot, map workflow, or sourcing conversation, start here.</h2>
+          </div>
+
+          <div class="contact-actions">
+            <a class="button button-solid" href="mailto:luke@verrio.co">luke@verrio.co</a>
+            <a class="button button-outline" href="https://github.com/lukgor130/verrio">View repository</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-shell">
+        <p>Verrio</p>
+        <p>Resilient agriculture intelligence for sourcing, mapping, and reporting.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
 </html>
