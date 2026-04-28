@@ -1,29 +1,34 @@
 # Verrio web presence
 
-This repository is intended to back the public `verrio.co` site and any shareable map or analytics prototypes that sit beside it.
+This repository supports the public `verrio.co` holding page and the current map application that will be published separately at `maps.verrio.co`.
 
 ## Structure
 
-- `/` is the public landing page for `verrio.co`
-- `/docs/` is the Portugal Almond Climate Rank application
-- `/maps/almond-fields/` is a lightweight orchard polygon viewer
+- `/` is the holding page for `verrio.co`
+- `/docs/` is the current GitHub-hosted map application
+- `/maps/almond-fields/` is a lightweight reference polygon viewer
 
-## Cloudflare Pages settings
+## Cloudflare Pages setup
 
-- Production branch: `main`
-- Framework preset: `None`
-- Build command: leave blank
-- Build output directory: `/`
+Create two Pages projects from the same repository:
+
+1. `verrio-site`
+   - Production branch: `main`
+   - Framework preset: `None`
+   - Build command: leave blank
+   - Build output directory: `/`
+   - Custom domain: `verrio.co`
+
+2. `verrio-maps`
+   - Production branch: `main`
+   - Framework preset: `None`
+   - Build command: leave blank
+   - Build output directory: `docs`
+   - Custom domain: `maps.verrio.co`
 
 ## Publishing flow
 
 1. Make changes in Codex.
 2. Commit to `main`.
 3. Push to GitHub.
-4. Cloudflare Pages deploys automatically.
-
-## Recommended domain routing
-
-- `verrio.co` -> landing page
-- `www.verrio.co` -> redirect to `verrio.co`
-- future tools can later move to subdomains such as `maps.verrio.co` if needed
+4. Cloudflare Pages deploys the holding page and map app automatically.
