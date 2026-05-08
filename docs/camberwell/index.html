@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Camberwell Property Scenario Planner</title>
+    <meta
+      name="description"
+      content="Interactive scenario model for comparing a Camberwell property purchase against trust investment returns."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fbf8ef'/%3E%3Cpath d='M6 18 16 8l10 10v8H6z' fill='%2320231f'/%3E%3Cpath d='M12 26v-7h8v7' fill='%23b9782f'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <div>
+          <p class="kicker">Multi-year decision model</p>
+          <h1>Camberwell property versus invested trust capital</h1>
+          <p class="hero-copy">
+            Stress-test a £400k-£600k two-bedroom London purchase over 3-15 years with SDLT, ownership costs,
+            lodger income, rent avoided, weak property-price scenarios, and financing above
+            the £425k cash envelope.
+          </p>
+        </div>
+        <div class="hero-panel" aria-label="Current base case">
+          <span>Base case surplus vs 5% trust benchmark</span>
+          <strong id="heroDelta">-</strong>
+          <small id="heroSummary">Move the assumptions to recalculate.</small>
+        </div>
+      </section>
+
+      <section class="dashboard" aria-label="Property model controls and results">
+        <form class="controls" id="modelForm">
+          <div class="control-group">
+            <h2>Acquisition</h2>
+            <label class="field">
+              <span class="label-row">
+                <span>Purchase price</span>
+                <span class="unit-chip">GBP</span>
+              </span>
+              <input id="purchasePrice" type="range" min="400000" max="600000" step="5000" value="500000" />
+              <output id="purchasePriceOut"></output>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Cash available</span>
+                <span class="unit-chip">GBP</span>
+              </span>
+              <span class="input-shell money-input">
+                <span aria-hidden="true">£</span>
+                <input id="cashAvailable" type="number" min="0" step="5000" value="425000" inputmode="numeric" />
+              </span>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Buying costs and setup</span>
+                <span class="unit-chip">GBP</span>
+              </span>
+              <span class="input-shell money-input">
+                <span aria-hidden="true">£</span>
+                <input id="buyingCosts" type="number" min="0" step="500" value="5000" inputmode="numeric" />
+              </span>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Holding period</span>
+                <span class="info-tip">
+                  <button type="button" aria-label="Explain holding period">i</button>
+                  <span role="tooltip">
+                    How long the property is owned before selling. Property growth, trust returns
+                    and annual cash benefits all compound or accumulate over this period.
+                  </span>
+                </span>
+              </span>
+              <input id="holdingYears" type="range" min="3" max="15" step="1" value="5" />
+              <output id="holdingYearsOut"></output>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Cost of capital on shortfall</span>
+                <span class="info-tip">
+                  <button type="button" aria-label="Explain cost of capital">i</button>
+                  <span role="tooltip">
+                    If the upfront cost is higher than the cash available, this model assumes the
+                    gap is borrowed. This is the yearly interest rate charged on that borrowed amount.
+                  </span>
+                </span>
+              </span>
+              <span class="input-shell percent-input">
+                <input id="financeRate" type="number" min="0" max="15" step="0.25" value="3" inputmode="decimal" />
+                <span aria-hidden="true">%</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="control-group">
+            <h2>Annual cashflow</h2>
+            <label class="field">
+              <span class="label-row">
+                <span>Current rent avoided, monthly</span>
+                <span class="unit-chip">GBP / month</span>
+              </span>
+              <span class="input-shell money-input">
+                <span aria-hidden="true">£</span>
+                <input id="rentAvoided" type="number" min="0" step="25" value="750" inputmode="numeric" />
+              </span>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Household bills now paid by owner, annual</span>
+                <span class="info-tip">
+                  <button type="button" aria-label="Explain household bills">i</button>
+                  <span role="tooltip">
+                    The current £750 rent was assumed to include bills. After buying, utilities,
+                    broadband and similar household bills become an owner cost.
+                  </span>
+                </span>
+              </span>
+              <span class="input-shell money-input">
+                <span aria-hidden="true">£</span>
+                <input id="bills" type="number" min="0" step="100" value="3000" inputmode="numeric" />
+              </span>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Lodger rent, monthly</span>
+                <span class="unit-chip">GBP / month</span>
+              </span>
+              <span class="input-shell money-input">
+                <span aria-hidden="true">£</span>
+                <input id="lodgerRent" type="number" min="0" step="25" value="750" inputmode="numeric" />
+              </span>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Owner marginal tax rate</span>
+                <span class="info-tip">
+                  <button type="button" aria-label="Explain owner marginal tax rate">i</button>
+                  <span role="tooltip">
+                    This is the tax rate paid on the next pound of taxable income. The model applies
+                    it only to lodger rent above the £7,500 Rent-a-Room allowance.
+                  </span>
+                </span>
+              </span>
+              <select id="taxRate">
+                <option value="20">20%</option>
+                <option value="40" selected>40%</option>
+                <option value="45">45%</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="control-group">
+            <h2>Ownership drag</h2>
+            <label class="field">
+              <span class="label-row">
+                <span>Council tax</span>
+                <span class="info-tip">
+                  <button type="button" aria-label="Explain council tax">i</button>
+                  <span role="tooltip">
+                    Camberwell is usually Southwark or Lambeth. The earlier base used Southwark
+                    2026/27 examples: Band C about £1,530, Band D about £1,749, Band E about £1,967.
+                  </span>
+                </span>
+              </span>
+              <span class="input-shell money-input">
+                <span aria-hidden="true">£</span>
+                <input id="councilTax" type="number" min="0" step="50" value="1750" inputmode="numeric" />
+              </span>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Service charge</span>
+                <span class="info-tip">
+                  <button type="button" aria-label="Explain service charge">i</button>
+                  <span role="tooltip">
+                    A leasehold flat often has an annual charge for building management, communal
+                    areas, insurance and maintenance. This can be a major swing factor.
+                  </span>
+                </span>
+              </span>
+              <span class="input-shell money-input">
+                <span aria-hidden="true">£</span>
+                <input id="serviceCharge" type="number" min="0" step="250" value="3000" inputmode="numeric" />
+              </span>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Maintenance reserve</span>
+                <span class="info-tip">
+                  <button type="button" aria-label="Explain maintenance reserve">i</button>
+                  <span role="tooltip">
+                    This is an annual allowance for repairs and wear-and-tear, entered as a percentage
+                    of the purchase price. For example, 1% on a £500k flat is £5k per year.
+                  </span>
+                </span>
+              </span>
+              <span class="input-shell percent-input">
+                <input id="maintenanceRate" type="number" min="0" max="5" step="0.1" value="1" inputmode="decimal" />
+                <span aria-hidden="true">%</span>
+              </span>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Insurance</span>
+                <span class="unit-chip">GBP / year</span>
+              </span>
+              <span class="input-shell money-input">
+                <span aria-hidden="true">£</span>
+                <input id="insurance" type="number" min="0" step="50" value="450" inputmode="numeric" />
+              </span>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Lodger vacancy allowance</span>
+                <span class="info-tip">
+                  <button type="button" aria-label="Explain lodger vacancy allowance">i</button>
+                  <span role="tooltip">
+                    A simple reduction for months when the spare room is empty or rent is not paid.
+                    5% means the model knocks 5% off expected annual lodger rent.
+                  </span>
+                </span>
+              </span>
+              <span class="input-shell percent-input">
+                <input id="vacancyRate" type="number" min="0" max="30" step="1" value="5" inputmode="decimal" />
+                <span aria-hidden="true">%</span>
+              </span>
+            </label>
+            <label class="field">
+              <span class="label-row">
+                <span>Sale costs</span>
+                <span class="info-tip">
+                  <button type="button" aria-label="Explain sale costs">i</button>
+                  <span role="tooltip">
+                    Estimated selling friction in the sale year, entered as a percentage of the future sale
+                    value. It can include estate agent fees, legal fees and sale preparation.
+                  </span>
+                </span>
+              </span>
+              <span class="input-shell percent-input">
+                <input id="saleCostRate" type="number" min="0" max="5" step="0.1" value="1.75" inputmode="decimal" />
+                <span aria-hidden="true">%</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="control-group scenario-picker">
+            <h2>Market view</h2>
+            <div id="scenarioButtons" class="scenario-buttons" role="radiogroup" aria-label="Property appreciation scenario"></div>
+            <label class="field">
+              <span class="label-row">
+                <span>Trust benchmark CAGR</span>
+                <span class="info-tip">
+                  <button type="button" aria-label="Explain trust benchmark CAGR">i</button>
+                  <span role="tooltip">
+                    CAGR means compound annual growth rate. This is the annual return assumed each
+                    year if the same upfront capital stayed invested in the trust instead of buying the flat.
+                  </span>
+                </span>
+              </span>
+              <span class="input-shell percent-input">
+                <input id="trustRate" type="number" min="-10" max="15" step="0.25" value="5" inputmode="decimal" />
+                <span aria-hidden="true">%</span>
+              </span>
+            </label>
+            <p class="note">
+              Appreciation scenarios are deliberately cautious: the prior session anchored the
+              central range around weak London flat dynamics rather than assuming a clean rebound.
+            </p>
+          </div>
+        </form>
+
+        <section class="results" aria-live="polite">
+          <div class="result-strip">
+            <article>
+              <span>Upfront cost</span>
+              <strong id="upfrontCost">-</strong>
+            </article>
+            <article>
+              <span>Borrowing need</span>
+              <strong id="borrowingNeed">-</strong>
+            </article>
+            <article>
+              <span>Net annual benefit</span>
+              <strong id="annualBenefit">-</strong>
+            </article>
+          </div>
+
+          <div class="comparison">
+            <article class="scorecard property-card">
+              <span>Property route, net gain</span>
+              <strong id="propertyValue">-</strong>
+              <p id="propertyDetail"></p>
+            </article>
+            <article class="scorecard benchmark-card">
+              <span>Trust route, net gain</span>
+              <strong id="trustValue">-</strong>
+              <p id="trustDetail"></p>
+            </article>
+          </div>
+
+          <section class="chart-panel">
+            <div class="chart-header">
+              <h2>Scenario spread</h2>
+              <span id="selectedScenarioLabel"></span>
+            </div>
+            <div id="scenarioChart" class="scenario-chart"></div>
+          </section>
+
+          <section class="breakdown">
+            <h2>Base-case calculation</h2>
+            <dl id="breakdownList"></dl>
+          </section>
+        </section>
+      </section>
+
+      <section class="assumptions">
+        <article>
+          <h2>Tax treatment included</h2>
+          <p>
+            Standard residential SDLT is used because the session specified UK-resident,
+            non-first-time buyer, primary residence. Rent-a-Room relief shelters the first
+            £7,500 of lodger income. Private Residence Relief is assumed to remove CGT on sale
+            if the property remains the main home throughout.
+          </p>
+        </article>
+        <article>
+          <h2>What would change the answer</h2>
+          <p>
+            Trust structure, leasehold service charge, major works, exact council-tax borough,
+            lodger vacancy, and a worse London flat market all matter. The model is intentionally
+            price-sensitive so stretching past the cash envelope is visible immediately.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
