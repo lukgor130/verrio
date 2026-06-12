@@ -1,54 +1,333 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Verrio</title>
-    <meta name="description" content="Verrio is under construction." />
-    <meta property="og:title" content="Verrio" />
-    <meta property="og:description" content="Verrio is under construction." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://verrio.co/" />
-    <link rel="canonical" href="https://verrio.co/" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main class="page" aria-labelledby="site-title">
-      <div class="page-mark" aria-hidden="true">
-        <svg width="168" height="246" viewBox="0 0 44 66" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
-          <g opacity="0.28">
-            <path d="M22 64 L22 48 L10 32" stroke="#65DB77" stroke-width="2.4" stroke-linecap="round" fill="none" />
-            <path d="M22 48 L34 32" stroke="#65DB77" stroke-width="2.4" stroke-linecap="round" fill="none" />
-            <path d="M22 48 L22 26" stroke="#65DB77" stroke-width="2.4" stroke-linecap="round" fill="none" />
-          </g>
-          <circle cx="10" cy="28" r="7.5" fill="#65DB77" opacity="0.62" />
-          <circle cx="34" cy="28" r="7.5" fill="#65DB77" opacity="0.62" />
-          <circle cx="22" cy="12" r="11" fill="#65DB77" />
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Verrio builds more resilient agricultural supply chains through sourcing, climate intelligence and field-level evidence.">
+  <meta name="theme-color" content="#0D1B3E">
+  <link rel="canonical" href="https://verrio.co/">
+  <meta property="og:title" content="Verrio | Resilient agricultural supply chains">
+  <meta property="og:description" content="Agricultural sourcing, climate intelligence and field-level evidence for stronger supply relationships.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://verrio.co/">
+  <meta property="og:site_name" content="Verrio">
+  <meta name="twitter:card" content="summary">
+  <title>Verrio | Resilient agricultural supply chains</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="Verrio home">
+      <svg class="brand-mark" width="31" height="43" viewBox="0 0 44 66" fill="none" aria-hidden="true">
+        <g opacity=".34">
+          <path d="M22 64V48L10 32M22 48L34 32M22 48V26" stroke="#65DB77" stroke-width="2.4" stroke-linecap="round"/>
+        </g>
+        <circle cx="10" cy="28" r="7.5" fill="#65DB77" opacity=".7"/>
+        <circle cx="34" cy="28" r="7.5" fill="#65DB77" opacity=".7"/>
+        <circle cx="22" cy="12" r="11" fill="#65DB77"/>
+      </svg>
+      <span class="brand-rule" aria-hidden="true"></span>
+      <span class="brand-name">verrio</span>
+    </a>
+
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span>Menu</span>
+      <span class="menu-lines" aria-hidden="true"></span>
+    </button>
+
+    <nav class="site-nav" id="site-nav" aria-label="Primary navigation">
+      <a href="#risk">Approach</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a class="nav-cta" href="#contact">Start a conversation</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-contours" aria-hidden="true">
+        <svg viewBox="0 0 640 640" preserveAspectRatio="xMidYMid slice">
+          <path d="M-20 143C109 45 252 14 411 72s242 35 291-30"/>
+          <path d="M-39 214C91 116 238 89 391 140s244 24 316-32"/>
+          <path d="M-42 289C85 195 225 164 381 211s252 30 335-23"/>
+          <path d="M-24 367C99 282 231 250 382 289s246 31 337-15"/>
+          <path d="M-7 444c120-71 251-96 396-64s235 30 322-9"/>
+          <path d="M16 521c124-55 252-74 391-48s219 25 300-3"/>
         </svg>
       </div>
 
-      <section class="lockup" aria-label="Verrio holding page">
-        <p class="kicker">Under construction</p>
-        <div class="brand" aria-hidden="true">
-          <svg width="64" height="94" viewBox="0 0 44 66" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
-            <g opacity="0.28">
-              <path d="M22 64 L22 48 L10 32" stroke="#65DB77" stroke-width="2.4" stroke-linecap="round" fill="none" />
-              <path d="M22 48 L34 32" stroke="#65DB77" stroke-width="2.4" stroke-linecap="round" fill="none" />
-              <path d="M22 48 L22 26" stroke="#65DB77" stroke-width="2.4" stroke-linecap="round" fill="none" />
-            </g>
-            <circle cx="10" cy="28" r="7.5" fill="#65DB77" opacity="0.62" />
-            <circle cx="34" cy="28" r="7.5" fill="#65DB77" opacity="0.62" />
-            <circle cx="22" cy="12" r="11" fill="#65DB77" />
-          </svg>
-          <h1 id="site-title">Verrio</h1>
+      <div class="hero-copy">
+        <p class="eyebrow reveal">Agricultural sourcing and supply-chain development</p>
+        <h1 id="hero-title" class="reveal" style="--delay: 80ms">
+          Building more resilient
+          <em>agricultural supply chains.</em>
+        </h1>
+        <p class="hero-lede reveal" style="--delay: 160ms">
+          Verrio helps buyers and institutional growers turn commercial, climate and field-level evidence into stronger sourcing relationships.
+        </p>
+        <div class="hero-actions reveal" style="--delay: 240ms">
+          <a class="button button-primary" href="#risk">
+            Explore the risk field
+            <span aria-hidden="true">↘</span>
+          </a>
+          <a class="text-link text-link-light" href="#contact">Discuss a supply-chain question</a>
         </div>
-      </section>
-    </main>
-  </body>
+      </div>
+
+      <figure class="hero-visual reveal" style="--delay: 150ms">
+        <img src="assets/almond-orchard-hero.jpg" alt="A Portuguese almond orchard with living ground cover and irrigation lines between the tree rows" fetchpriority="high" decoding="async">
+        <figcaption>
+          <span>Healthy production systems</span>
+          <span>Mediterranean tree crops</span>
+        </figcaption>
+        <div class="field-note field-note-a" aria-hidden="true">
+          <span class="field-note-dot"></span>
+          <span>Living ground cover</span>
+        </div>
+        <div class="field-note field-note-b" aria-hidden="true">
+          <span class="field-note-dot"></span>
+          <span>Managed irrigation</span>
+        </div>
+      </figure>
+
+      <div class="hero-index" aria-hidden="true">
+        <span>01</span>
+        <span>Resilience begins with better decisions</span>
+      </div>
+    </section>
+
+    <section class="risk-field" id="risk" data-risk-field aria-labelledby="risk-title">
+      <header class="risk-story-header">
+        <div class="risk-story-heading">
+          <p class="eyebrow">Iberian almond sourcing · water resilience</p>
+          <h2 id="risk-title">By 2030, just <em>5% remains below high water stress.</em></h2>
+        </div>
+
+        <div class="risk-scenario-label">
+          <span>WRI Aqueduct 4.0</span>
+          <strong>2030</strong>
+          <small>Business-as-usual scenario</small>
+        </div>
+      </header>
+
+      <div class="risk-map-stage" aria-labelledby="risk-map-title">
+        <h3 id="risk-map-title" class="visually-hidden">Interactive Iberian almond water-stress map</h3>
+        <canvas
+          data-map
+          role="img"
+          aria-label="Map of the Iberian Peninsula showing mapped almond area as circles coloured by WRI Aqueduct water-stress class."
+        ></canvas>
+
+        <div class="risk-map-stat" aria-live="polite">
+          <strong>5%</strong>
+          <span>of mapped Spanish almond area remains below high water stress.</span>
+        </div>
+
+        <div class="risk-interaction-cue" data-cue>
+          <span aria-hidden="true"></span>
+          <p><strong>Move through the map</strong> to reveal the scale and density of mapped almond production.</p>
+        </div>
+      </div>
+
+      <footer class="risk-map-footer">
+        <div class="risk-scale" aria-label="WRI water-stress classes">
+          <span><i class="risk-low"></i>Low <small>&lt;10%</small></span>
+          <span><i class="risk-lowmedium"></i>Low-medium <small>10–20%</small></span>
+          <span><i class="risk-mediumhigh"></i>Medium-high <small>20–40%</small></span>
+          <span><i class="risk-high"></i>High <small>40–80%</small></span>
+          <span><i class="risk-extreme"></i>Extremely high <small>&gt;80%</small></span>
+        </div>
+        <p class="risk-method-note">
+          Circle area reflects mapped almond area. Water stress is basin-level screening, not farm-level water use or predicted yield loss.
+        </p>
+        <p class="risk-source-note">
+          Sources: national agricultural parcel designations, Portugal 2025 and Spain 2024; WRI Aqueduct 4.0.
+        </p>
+      </footer>
+
+      <p class="accessible-summary">
+        Under the 2030 business-as-usual scenario, only 5% of mapped Spanish almond area remains below high water stress.
+      </p>
+    </section>
+
+    <section class="risk-response section-shell" aria-labelledby="response-title">
+      <div class="response-heading">
+        <p class="eyebrow">From risk signal to commercial response</p>
+        <h2 id="response-title">Resilience depends on what changes next.</h2>
+        <p class="response-intro">
+          Verrio sits between institutional production and commercial demand, bringing together the sourcing analysis, field intelligence and partner coordination needed to act on material risk.
+        </p>
+      </div>
+      <div class="response-actions">
+        <article data-reveal>
+          <span>01 · Diversify</span>
+          <h3>Develop credible alternative origins.</h3>
+          <p>Test supply, specifications and destination economics before asking procurement teams to change route.</p>
+        </article>
+        <article data-reveal>
+          <span>02 · Validate</span>
+          <h3>Separate regional exposure from farm performance.</h3>
+          <p>Combine basin context with field data, traceability and production practice.</p>
+        </article>
+        <article data-reveal>
+          <span>03 · Improve</span>
+          <h3>Reward practices that strengthen production.</h3>
+          <p>Build the business case for soil health, water efficiency, nutrient efficiency and biodiversity.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="almond-feature" id="work" aria-labelledby="almond-title">
+      <div class="almond-copy section-shell">
+        <div class="feature-heading">
+          <div>
+            <p class="eyebrow eyebrow-green">Current sourcing programme · 2026 crop</p>
+            <h2 id="almond-title">Portugal as a credible second European almond origin.</h2>
+          </div>
+          <p class="feature-lede">
+            Verrio is coordinating a managed route into professional growers, buyer-ready processing and field-level sourcing evidence.
+          </p>
+        </div>
+
+        <div class="almond-grid">
+          <div class="supply-facts" aria-label="Portuguese almond programme facts">
+            <div class="fact" data-reveal>
+              <strong>10,000<sup>+</sup></strong>
+              <span>hectares across current grower partners</span>
+            </div>
+            <div class="fact" data-reveal>
+              <strong>18,000</strong>
+              <span>mt forecast annual kernel-equivalent capacity</span>
+            </div>
+            <div class="fact fact-accent" data-reveal>
+              <strong>3,000</strong>
+              <span>mt of 2026 supply currently available, subject to terms</span>
+            </div>
+          </div>
+
+          <div class="supply-route" data-reveal>
+            <p class="mini-label">A managed origin route</p>
+            <ol>
+              <li>
+                <span class="route-node"></span>
+                <div><strong>Professional growers</strong><small>Mapped supply and crop visibility</small></div>
+              </li>
+              <li>
+                <span class="route-node"></span>
+                <div><strong>Verrio coordination</strong><small>Allocation, specification and contract structure</small></div>
+              </li>
+              <li>
+                <span class="route-node"></span>
+                <div><strong>Buyer relationship</strong><small>Direct origin with evidence that travels</small></div>
+              </li>
+            </ol>
+          </div>
+
+          <div class="programme-detail" data-reveal>
+            <p>
+              Guara, Lauranne, Penta, Soleta and Belona. Whole premium Mediterranean kernel, with processing shipments available from October 2026.
+            </p>
+            <a class="button button-primary" href="#contact">Discuss the 2026 programme <span aria-hidden="true">→</span></a>
+            <small>Minimum 50 mt. Preference for relationships of 100 mt or more.</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about" aria-labelledby="about-title">
+      <div class="about-inner section-shell">
+        <div class="about-statement">
+          <p class="eyebrow eyebrow-green">About Verrio</p>
+          <h2 id="about-title">Founder-led, partner-enabled and close to the work.</h2>
+        </div>
+        <div class="about-copy">
+          <p>
+            Verrio is an independent agricultural sourcing and supply-chain development business. It works directly with growers and buyers, bringing in research, technical, processing and programme partners where the work requires them.
+          </p>
+          <p>
+            The focus is Mediterranean tree crops and the practical questions that shape their long-term value: market access, water, climate exposure, soil performance, biodiversity and stable commercial relationships.
+          </p>
+          <a class="text-link text-link-light" href="#contact">Bring us the question you are trying to resolve</a>
+        </div>
+        <figure class="about-image">
+          <img src="assets/almond-blossom-pollinator.jpg" alt="Almond trees in blossom with managed beehives positioned through the orchard" loading="lazy" decoding="async">
+          <figcaption>Almond bloom and managed pollination in a working orchard.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="contact section-shell" id="contact" aria-labelledby="contact-title">
+      <div class="contact-heading">
+        <p class="eyebrow">Start with the question that matters now</p>
+        <h2 id="contact-title">What would make this supply relationship more resilient?</h2>
+        <p>Tell us briefly about the crop, origin or sourcing decision. Verrio will respond with the most useful next step.</p>
+      </div>
+
+      <form class="contact-form" data-contact-form>
+        <div class="form-grid">
+          <label>
+            <span>Name</span>
+            <input type="text" name="name" autocomplete="name" required>
+          </label>
+          <label>
+            <span>Organisation</span>
+            <input type="text" name="organisation" autocomplete="organization" required>
+          </label>
+          <label>
+            <span>Work email</span>
+            <input type="email" name="email" autocomplete="email" required>
+          </label>
+          <label>
+            <span>Area of interest</span>
+            <select name="interest" required>
+              <option value="">Select one</option>
+              <option>Portuguese almonds</option>
+              <option>Sourcing and market access</option>
+              <option>Water and climate resilience</option>
+              <option>Regenerative practices and measurement</option>
+              <option>Institutional grower support</option>
+            </select>
+          </label>
+          <label class="form-message">
+            <span>What are you trying to resolve?</span>
+            <textarea name="message" rows="4" required></textarea>
+          </label>
+        </div>
+        <div class="form-footer">
+          <button class="button button-dark" type="submit">Draft email to Verrio <span aria-hidden="true">→</span></button>
+          <p>Opens a pre-filled email to info@verrio.co.</p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <a class="brand" href="#top" aria-label="Verrio home">
+        <svg class="brand-mark" width="26" height="36" viewBox="0 0 44 66" fill="none" aria-hidden="true">
+          <g opacity=".34"><path d="M22 64V48L10 32M22 48L34 32M22 48V26" stroke="#65DB77" stroke-width="2.4" stroke-linecap="round"/></g>
+          <circle cx="10" cy="28" r="7.5" fill="#65DB77" opacity=".7"/>
+          <circle cx="34" cy="28" r="7.5" fill="#65DB77" opacity=".7"/>
+          <circle cx="22" cy="12" r="11" fill="#65DB77"/>
+        </svg>
+        <span class="brand-name">verrio</span>
+      </a>
+      <span>Scaling resilient agriculture</span>
+    </div>
+    <div class="footer-meta">
+      <span>Portugal · Working across Mediterranean agriculture</span>
+      <span>© <span data-year></span> Verrio</span>
+    </div>
+  </footer>
+
+  <script src="iberia-risk-data.js"></script>
+  <script src="risk-field.js"></script>
+  <script src="script.js"></script>
+</body>
 </html>
