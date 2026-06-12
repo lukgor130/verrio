@@ -684,6 +684,14 @@ h3 {
   font-weight: 500;
 }
 
+.risk-story-intro {
+  max-width: 760px;
+  margin: 25px 0 0;
+  color: rgba(26, 28, 32, .66);
+  font-size: clamp(.98rem, 1.35vw, 1.18rem);
+  line-height: 1.7;
+}
+
 .risk-scenario-label {
   min-width: 245px;
   padding: 12px 0 11px;
@@ -755,6 +763,20 @@ h3 {
   display: block;
   cursor: crosshair;
   touch-action: pan-y;
+}
+
+.risk-map-label {
+  position: absolute;
+  z-index: 2;
+  top: clamp(28px, 5vw, 70px);
+  left: clamp(24px, 5vw, 82px);
+  margin: 0;
+  color: var(--teal);
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  pointer-events: none;
 }
 
 .risk-map-stat {
@@ -1972,6 +1994,11 @@ h3 {
     line-height: .92;
   }
 
+  .risk-story-intro {
+    margin-top: 22px;
+    font-size: .92rem;
+  }
+
   .risk-scenario-label {
     width: 100%;
   }
@@ -1991,6 +2018,11 @@ h3 {
     top: 24px;
     right: 18px;
     width: 132px;
+  }
+
+  .risk-map-label {
+    top: 18px;
+    left: 18px;
   }
 
   .risk-map-stat strong {
