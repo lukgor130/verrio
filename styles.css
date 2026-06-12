@@ -912,6 +912,44 @@ h3 {
   padding-block: clamp(85px, 10vw, 140px);
 }
 
+.sourcing-intro {
+  padding: clamp(155px, 18vw, 250px) 0 clamp(85px, 9vw, 130px);
+  background: var(--navy);
+  color: var(--white);
+}
+
+.sourcing-intro-grid {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  gap: clamp(55px, 9vw, 140px);
+  align-items: end;
+}
+
+.sourcing-intro h1 {
+  max-width: 850px;
+  margin-top: 24px;
+  font-family: var(--display);
+  font-size: clamp(4.5rem, 8vw, 8.4rem);
+  font-weight: 500;
+  letter-spacing: -.055em;
+  line-height: .88;
+}
+
+.sourcing-intro h1 em {
+  display: block;
+  color: var(--green);
+  font-weight: 400;
+}
+
+.sourcing-intro-grid > p {
+  max-width: 47ch;
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, .62);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
 .response-heading h2 {
   margin-top: 20px;
   font-size: clamp(2.6rem, 4.5vw, 4.7rem);
@@ -1704,6 +1742,11 @@ h3 {
     gap: 45px;
   }
 
+  .sourcing-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
   .section-intro,
   .feature-heading,
   .audience-heading {
@@ -1862,6 +1905,14 @@ h3 {
   .hero-copy {
     min-height: 590px;
     padding: 105px 17px 58px;
+  }
+
+  .sourcing-intro {
+    padding: 130px 0 76px;
+  }
+
+  .sourcing-intro h1 {
+    font-size: clamp(3.7rem, 18vw, 5.5rem);
   }
 
   .hero-copy .eyebrow {
