@@ -60,20 +60,26 @@ function createProjection(mapWidth, mapHeight) {
   const isMobile = mapWidth < 620;
   const bounds = [-9.85, 35.55, 4.45, 44.05];
   const [minLon, minLat, maxLon, maxLat] = bounds;
+  // Longitude degrees narrow with latitude. Correcting by the midpoint cosine
+  // avoids the horizontal stretch produced by plotting raw lon/lat degrees.
+  const standardLatitude = ((minLat + maxLat) / 2) * Math.PI / 180;
+  const longitudeScale = Math.cos(standardLatitude);
+  const projectedWidth = (maxLon - minLon) * longitudeScale;
+  const projectedHeight = maxLat - minLat;
   const padding = isMobile
     ? { left: 13, right: 13, top: 116, bottom: 72 }
     : { left: mapWidth * .075, right: mapWidth * .17, top: 35, bottom: 40 };
   const scale = Math.min(
-    (mapWidth - padding.left - padding.right) / (maxLon - minLon),
-    (mapHeight - padding.top - padding.bottom) / (maxLat - minLat)
+    (mapWidth - padding.left - padding.right) / projectedWidth,
+    (mapHeight - padding.top - padding.bottom) / projectedHeight
   );
-  const contentWidth = (maxLon - minLon) * scale;
-  const contentHeight = (maxLat - minLat) * scale;
+  const contentWidth = projectedWidth * scale;
+  const contentHeight = projectedHeight * scale;
   const offsetX = padding.left + (mapWidth - padding.left - padding.right - contentWidth) / 2;
   const offsetY = padding.top + (mapHeight - padding.top - padding.bottom - contentHeight) / 2;
 
   return ([lon, lat]) => [
-    offsetX + (lon - minLon) * scale,
+    offsetX + (lon - minLon) * longitudeScale * scale,
     mapHeight - offsetY - (lat - minLat) * scale,
   ];
 }
